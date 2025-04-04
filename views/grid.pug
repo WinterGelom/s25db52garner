@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p Rows: #{query.rows} Cols: #{query.cols}
+  - var rows = Number(query.rows)
+  - var cols = Number(query.cols)
+  if !Number.isInteger(rows)
+    p rows is not a number. Please enter a number.
+  else if !Number.isInteger(cols)
+    p cols is not a number. Please enter a number.
+  else
+    - if(rows>13 || rows<3)
+      p rows is out of range. Rows needs to be between 3 and 13.
+    - else if(cols>13 || cols<3)
+      p cols is out of range. Rows needs to be between 3 and 13.
+    -else
+      table#outer 
+        - for(let i=0; i<rows; i++) {
+          tr#middle
+            - for(let j=0; j<cols; j++) {
+              td #{i-j}
+            - }
+        - }
+      

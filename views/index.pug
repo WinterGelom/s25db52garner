@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Hello My Name is #{title}
+  button(type="button", class="btn btn-secondary" onclick="faster()") Sample Button
+  div(id="faster") add in extra
+  a(href="/lumber") Search Link
+  script. 
+    let value = 1;
+    let amt = 2;
+    function faster(){
+      amt = amt * 2;
+      value = value + amt;
+      console.log(value);
+      document.getElementById("faster").innerHTML = "Faster " + value + " times " + amt;
+    }
