@@ -31,3 +31,16 @@ exports.lumber_delete = function(req, res){
 exports.lumber_update_put = function(req, res){
     res.send('Not Implemented: Lumber update PUT ' + req.params.id);
 };
+
+//VIEWS
+//Handle a show all view
+exports.lumber_view_all_Page = async function(req, res){
+    try{
+        theLumbers = await lumber.find();
+        res.render('lumber', {title: 'Lumber Search Results',result: theLumbers});
+    }
+    catch(err){
+        res.status(500);
+        res.send(`{"error":${err}}`);
+    }
+};
