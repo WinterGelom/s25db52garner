@@ -1,8 +1,15 @@
 var lumber = require('../models/lumber');
 
 // list of all Lumber
-exports.lumber_list = function(req, res) {
-    res.send('Not Implemented: Lumber list');
+exports.lumber_list = async function(req, res) {
+    try{
+        theLumbers = await lumber.find();
+        res.send(theLumbers);
+    }
+    catch(err){
+        res.status(500);
+        res.send(`{"error":${err}}`);
+    }
 };
 
 // for a specific Lumber
