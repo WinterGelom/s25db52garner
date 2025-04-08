@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var lumberRouter = require('./routes/lumber');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/users', usersRouter);
 app.use('/lumber', lumberRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
+app.use('/resource', resourceRouter);
 
 //connect to the database
 require('dotenv').config();
