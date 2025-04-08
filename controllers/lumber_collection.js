@@ -13,8 +13,16 @@ exports.lumber_list = async function(req, res) {
 };
 
 // for a specific Lumber
-exports.lumber_detail = function(req, res){
-    res.send('Not Implemented: Lumber detail: ' + req.params.id);
+exports.lumber_detail = async function(req, res){
+    console.log("detail" + req.params.id)
+    try{
+        result = await lumber.findById(req.params.id);
+        res.send(result);
+    }
+    catch(error){
+        res.status(500);
+        res.send(`{"error": document for id ${req.params.id} not found}`);
+    }
 };
 
 //Handle Lumber create on POST.
