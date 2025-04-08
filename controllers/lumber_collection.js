@@ -18,8 +18,20 @@ exports.lumber_detail = function(req, res){
 };
 
 //Handle Lumber create on POST.
-exports.lumber_create_post = function(req, res){
-    res.send('Not Implemented: Lumber create POST');
+exports.lumber_create_post = async function(req, res){
+    console.log(req.body);
+    let document = new lumber();
+    document.lumber_type = req.body.lumber_type;
+    document.cost = req.body.cost;
+    document.length = req.body.length;
+    try{
+        let result = await document.save();
+        res.send(result);
+    }
+    catch(err){
+        res.status(500);
+        res.send(`{"error":${err}}`);
+    }
 };
 
 //Handle Lumber delete from on DELETE
