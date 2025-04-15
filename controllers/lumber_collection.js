@@ -43,13 +43,40 @@ exports.lumber_create_post = async function(req, res){
 };
 
 //Handle Lumber delete from on DELETE
-exports.lumber_delete = function(req, res){
-    res.send('Not Implemented: Lumber delete DELETE ' + req.params.id);
+exports.lumber_delete = async function(req, res){
+    console.log("delete " + req.params.id)
+    try{
+        result = await lumber.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err){
+        res.status(500)
+        res.send(`{"error":Error deleting ${err}}`);
+    }
 };
 
 //Handle Costume update form on PUT
-exports.lumber_update_put = function(req, res){
-    res.send('Not Implemented: Lumber update PUT ' + req.params.id);
+exports.lumber_update_put = async function(req, res){
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
+    try{
+        let toUpdate = await lumber.findById(req.params.id);
+        if(req.body.lumber_type){
+            toUpdate.lumber_type = req.body.lumber_type;
+        }
+        if(req.body.cost){
+            toUpdate.cost = req.body.cost;
+        }
+        if(req.body.length){
+            toUpdate.length = req.body.length;
+        }
+        let result = await toUpdate.save();
+        console.log("Success " + result);
+        res.send(result);
+    }
+    catch{
+        res.status(500);
+        res.send(`{"error":${err}: Update for id ${req.params.id} failed}`);
+    }
 };
 
 //VIEWS
@@ -62,5 +89,18 @@ exports.lumber_view_all_Page = async function(req, res){
     catch(err){
         res.status(500);
         res.send(`{"error":${err}}`);
+    }
+};
+
+//Handle a show one view id specified by query
+exports.lumber_view_one_Page = async function(req, res){
+    console.log("single view for id" + req.query.id)
+    try{
+        result = await lumber.findById(req.query.id)
+        res.render('lumberdetail', {title: 'Lumber Detail', toShow:result})
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': ${err}}`);
     }
 };

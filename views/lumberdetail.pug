@@ -1,0 +1,21 @@
+extends layout 
+block content
+  h1= title
+  
+  - let lumberid = toShow.id
+  - let lumber_type = toShow.lumber_type 
+  - let lumber_cost = toShow.cost 
+  - let lumber_length = toShow.length
+  div 
+    div.row
+      div(class='lumberAttr mr-3') Lumber ID is:
+      div #{lumberid}
+    div.row
+      div(class='lumberAttr mr-3') Lumber Type is: 
+      div #{lumber_type}
+    div.row
+      div(class='lumberAttr mr-3') Lumber Length is:
+      div #{lumber_length}
+    div.row
+      div(class='lumberAttr mr-3') Lumber Cost is:
+      div #{lumber_cost}
