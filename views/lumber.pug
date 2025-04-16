@@ -4,9 +4,15 @@ block content
   h1= title
   - var results = result
   div(class = "container-fluid")
-    div(class = "row")
-      each item in results 
+    div(class = "row m-1")
+      each item in results
+        -let destination = `dispatch(\"/lumber/update?id=${item.id}\")`
         div(class="col-sm-2") 
           p Lumber type: #{item.lumber_type}
           p Cost: #{item.cost}
           p Length: #{item.length}
+            button.btn(class="btn-primary ml-1", onclick= destination) Update
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }
