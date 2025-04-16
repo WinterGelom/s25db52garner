@@ -88,7 +88,7 @@ exports.lumber_view_all_Page = async function(req, res){
     }
     catch(err){
         res.status(500);
-        res.send(`{"error":${err}}`);
+        res.send(`{"error":'${err}'}`);
     }
 };
 
@@ -101,6 +101,20 @@ exports.lumber_view_one_Page = async function(req, res){
     }
     catch(err){
         res.status(500)
-        res.send(`{'error': ${err}}`);
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+//Handle Building the view for creating a lumber
+//No body, no in path parameter, no query.
+// Does not need to be async
+exports.lumber_create_Page = function(req, res){
+    console.log("create view")
+    try{
+        res.render('lumbercreate', {title: 'Lumber Create'});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`)
     }
 };

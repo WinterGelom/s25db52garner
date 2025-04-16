@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1=title
+
+  form(id='LumberForm', action="/resource/lumber", method="POST")
+    div.form-group
+      label.lumberAttr(for='lumber_type') Lumber type
+      input#lumber_type(type='text', name='lumber_type')
+    div.form-group
+      label.lumberAttr(for='length') Lumber length 
+      input#length(type='number', name='length')
+    div.form-group
+      label.lumberAttr(for='cost') Lumber cost
+      input#cost(type='number', name='cost')
+    input(type="submit")
+
+  script.
+    document.forms['LumberForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        fetch(event.target.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(event.target))
+        }).then((resp) => {
+            return resp.json();
+        }).then((body) => {
+            alert("Save succeded")
+        }).catch((error) => {
+            alert("Save failed " + error)
+        });
+    });
