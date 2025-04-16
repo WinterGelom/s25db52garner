@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+
+  - let lumberid = toShow.id
+  - let lumber_type = toShow.lumber_type
+  - let lumberlength = toShow.length
+  - let lumbercost = toShow.cost
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{lumberid}
+  - let actionid = "/resource/lumber/" + lumberid
+  form(id='LumberForm', action= actionid, method="PUT")
+    div.form-group
+      label.lumberAttr(for='lumber_type') Lumber type
+      input#lumber_type(type='text', name='lumber_type', value = lumber_type)
+    div.form-group
+      label.lumberAttr(for='length') Lumber length
+      input#length(type='number', name='length', value=lumberlength)
+    div.form-group
+      label.lumberAttr(for='cost') Lumber cost
+      input#cost(type='number', name='cost', value=lumbercost)
+    input(type="submit")
+
+  script.
+    document.forms['LumberForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target))
+        }).then((resp) => {
+            return resp.json();
+        }).then((body) => {
+            alert("Update succeded")
+        }).catch((error) => {
+            alert("Update failed " + error)
+        });
+    })
