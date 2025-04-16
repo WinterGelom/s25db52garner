@@ -132,3 +132,16 @@ exports.lumber_update_Page = async function(req, res){
         res.send(`{'error':'${err}'}`);
     }
 };
+
+//Handle a delete one view with id from query
+exports.lumber_delete_Page = async function(req, res){
+    console.log("Delete view for id" + req.query.id)
+    try{
+        result = await lumber.findById(req.query.id)
+        res.render('lumberdelete', {title: 'Lumber Delete', toShow: result});
+    }
+    catch{
+        res.status(500)
+        res.send(`{'error':'${err}'}`);
+    }
+}
